@@ -34,7 +34,7 @@ npm run dev
 	WEBHOOK_URL="Jandi에서 발급받은 webhook url"
 	KAKAO_API_KEY ="kakao develop에서 발급 받은 API key"
 
-.env.[ local | develop | production ]
+.env.[ local | develop | prod ]
 	SERVER_HOST="localhost"
 	SERVER_PORT="4000"
 	SERVER_URL="http://localhost:4000"
