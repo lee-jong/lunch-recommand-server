@@ -28,8 +28,8 @@ interface ApiSchemas {
 export const openapi = "3.0.0";
 
 export const info = {
-  title: "Chameleon License API",
-  version: "1.0.0",
+  title: "lunch recommand API",
+  version: process.env.version ?? "0.0.0",
   description: "",
 };
 
