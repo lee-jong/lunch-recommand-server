@@ -1,0 +1,33 @@
+{
+  "compilerOptions": {
+    /* Visit https://aka.ms/tsconfig to read more about this file */
+    "target": "es2016",
+    "module": "CommonJS",
+    "moduleResolution": "node",
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "strict": true,
+    "skipLibCheck": true,
+    "typeRoots": ["./types"],
+    "baseUrl": "./",
+    "paths": {
+      "@/controller/*": ["controller/*"],
+      "@/lib/*": ["lib/*"],
+      "@/util/*": ["util/*"],
+      "@/database/*": ["database/*"],
+      "@/query/*": ["query/*"],
+      "@/json/*": ["json/*"],
+      "@/swagger/*": ["swagger/*"],
+      "@/files/*": ["files/*"],
+      "@/logs/*": ["logs/*"],
+      "@/route/*": ["route/*"],
+      "@/interceptor/*": ["interceptor/*"],
+      "@/api/*": ["api/*"]
+    }
+  },
+  "include": ["**/*.ts", "**/*.js", "**/*.json"],
+  "ts-node": {
+    "files": true,
+    "esm": true
+  }
+}
