@@ -23,6 +23,9 @@ export const sendJandiWebhook = async (info: {
     connectInfo: [
       ...connectInfo,
       {
+        title: `업데이트 일자 ${info.data[0]["데이터기준일자"]}`,
+      },
+      {
         title: "점심 추천 API",
         imageUrl: `${process.env.SERVER_URL}/swagger`,
       },
