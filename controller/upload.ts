@@ -12,7 +12,7 @@ export const fileUpload = async (req: Request, res: Response) => {
       throw { code: 400, desc: "the file does not exist." };
     }
 
-    await new Promise((_res, rej) => {
+    await new Promise((res, rej) => {
       let data: Array<RestaurantInfo> = [];
       fs.createReadStream(join(__dirname, "../uploads/Restaurant.csv"))
         .pipe(iconv.decodeStream("EUC-KR"))
@@ -40,6 +40,7 @@ export const fileUpload = async (req: Request, res: Response) => {
             JSON.stringify(data, null, 2)
           );
           console.log("CSV file successfully converted to JSON.");
+          res("");
         })
         .on("error", (err) => {
           rej({ code: 400, desc: "please check the format of the file." });
