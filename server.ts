@@ -17,7 +17,7 @@ process.env = {
 
 const app = express();
 const http = require("http").Server(app);
-const port = 4000;
+const port = process.env.SERVER_PORT ?? 4000;
 
 const getSwaggerOption = () => {
   const apiDocs = new ApiDocs();
