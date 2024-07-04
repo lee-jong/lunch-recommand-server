@@ -36,7 +36,7 @@ export default class Swagger {
       definition: {
         openapi,
         info,
-        servers,
+        servers: servers(process.env.SERVER_URL ?? "localhost:4000"),
         schemes,
         securityDefinitions,
         security: [{ bearerAuth: ["/api"] }],

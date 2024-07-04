@@ -67,11 +67,7 @@ export const security = [{ bearerAuth: ["/api"] }];
 
 export const produces = ["application/json"];
 
-export const servers = [
-  {
-    url: `http://localhost:4000`,
-  },
-];
+export const servers = (url: string) => [{ url }];
 
 export const schemas = require("json/status-codes.json");
 
