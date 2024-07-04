@@ -1,76 +1,42 @@
-export const name_exception = [
-  "커피",
-  "cafe",
-  "카페",
-  "호프",
-  "치킨",
-  "맥주",
-  "비어",
-  "bbq",
-  "7080",
-  "닭발",
-  "곱창",
-  "막창",
-  "롱타임노씨",
-  "파티오플러스",
-  "치어스",
-  "참치",
-  "양꼬치",
-  "양고기",
-  "피자",
-  "프랑제리",
-  "피제이피",
-  "씨지브이",
-  "웨딩",
-  "위스키",
-  "bar",
-  "베이글",
-  "bhc",
-  "music",
-  "사랑",
-  "페리카나",
-  "강정",
-  "live",
-  "컨벤션",
-  "투썸",
-  "족발",
-  "보쌈",
-  "아구찜",
-  "두리아",
-  "탕후루",
-  "횟집",
-  "한방",
-  "의료",
-  "장례",
-  "병원",
-  "사우나",
-  "모토이시",
-  "갈비",
-  "장어",
-  "수산",
-  "다방",
-  "정육",
-];
+import { join } from "path";
+import fs from "fs";
+export const changeJsonFile = (type: "name" | "addr", exception: string) => {
+  try {
+    const options = {
+      name: {
+        key: "사업장명" as RestaurantKey,
+        fileName: "name_exception",
+      },
+      addr: {
+        key: "소재지(도로명)" as RestaurantKey,
+        fileName: "address_exception",
+      },
+    };
 
-export const address_exception = [
-  "중탑조합상가",
-  "매화로",
-  "양현로",
-  "장미로",
-  "판교로",
-  "벌말로",
-  "야탑로139번길",
-  "야탑로146번길",
-  "야탑로149번길",
-  "야탑로153번길",
-  "야탑로167번길",
-  "야탑로205번길",
-  "야탑남로",
-  "탄천로",
-  "야탑로 20",
-  "야탑로 233",
-  "야탑로 245",
-  "야탑로 247",
-  "야탑로 249",
-  "지하1층 전부",
-];
+    const key = options[type].key;
+    const fileName = options[type].fileName;
+    // 상호명 제외 후 다시 저장
+    const restaurantData: Array<RecommandRestaurantInfo> = require("json/restaurant.json");
+    const exceptionData: Array<string> = require(`json/${fileName}.json`);
+
+    exceptionData.push(exception);
+
+    fs.writeFileSync(
+      join(__dirname, `../json/${fileName}.json`),
+      JSON.stringify(exceptionData, null, 2)
+    );
+
+    // 추천 리스트 제외 후 다시 저장
+    fs.writeFileSync(
+      join(__dirname, "../json/restaurant.json"),
+      JSON.stringify(
+        restaurantData.filter((item) => !item[key].includes(exception)),
+        null,
+        2
+      )
+    );
+  } catch (e) {
+    console.log("Error changing file", e);
+    throw { code: 500, desc: "Error changing file" };
+  }
+};

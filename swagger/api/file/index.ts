@@ -1,2 +1,4 @@
 import upload from "./upload";
-export default { ...upload };
+import addNameException from "./addNameException";
+import addAddrException from "./addAddrException";
+export default { ...upload, ...addNameException, ...addAddrException };

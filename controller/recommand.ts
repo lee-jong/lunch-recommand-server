@@ -46,7 +46,6 @@ export const sendRecommand = async (_req?: Request, res?: Response) => {
 
     res &&
       res.status(200).json({
-        status: 200,
         message: "OK",
       });
   } catch (e: any) {
