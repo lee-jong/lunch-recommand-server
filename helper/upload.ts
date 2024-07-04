@@ -44,6 +44,8 @@ export const name_exception = [
   "장례",
   "병원",
   "사우나",
+  "모토이시",
+  "갈비",
 ];
 
 export const address_exception = [
