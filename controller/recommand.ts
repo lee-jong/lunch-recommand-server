@@ -49,6 +49,7 @@ export const sendRecommand = async (_req?: Request, res?: Response) => {
         message: "OK",
       });
   } catch (e: any) {
+    console.log("Recommand Error", e);
     res && handleError(res, e.code, e.desc);
   }
 };
