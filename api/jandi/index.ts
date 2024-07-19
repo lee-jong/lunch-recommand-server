@@ -36,3 +36,24 @@ export const sendJandiWebhook = async (info: {
     .then(handleSuccess)
     .catch(handleError);
 };
+
+export const sendJandiWorkWebhook = async (info: {
+  data: { title: string; desc: string; url: string };
+  key: string;
+}) => {
+  const { title, desc, url } = info.data;
+  const snedData = {
+    body: title,
+    connectColor: "#FAC11B",
+    connectInfo: [
+      {
+        title: desc,
+        imageUrl: url,
+      },
+    ],
+  };
+  await jandiInstance
+    .post(info.key, snedData)
+    .then(handleSuccess)
+    .catch(handleError);
+};
