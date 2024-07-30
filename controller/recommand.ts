@@ -21,7 +21,10 @@ export const sendRecommand = async (_req?: Request, res?: Response) => {
 
             if (!random.some((item) => item["사업장명"] == pick["사업장명"])) {
               const query = "야탑 " + pick["사업장명"];
-              const searchData = await getKakaoSearch(query);
+              const searchData = await getKakaoSearch(query).catch((e) => {
+                console.log("KAKAO ERROR", e);
+                return "";
+              });
               random.push({
                 ...pick,
                 imageUrl: searchData.documents[0].url ?? "",
