@@ -11,15 +11,16 @@ export const sendRecommand = async (_req?: Request, res?: Response) => {
       fs.readFileSync(join(__dirname, "../json/restaurant.json"), "utf-8")
     );
 
-    const randomRestaurats = await new Promise<Array<RecommandRestaurantInfo>>(
+    const randomRestaurants = await new Promise<Array<RecommandRestaurantInfo>>(
       async (res, rej) => {
         try {
+          let randomSet = new Set<number>();
           let random: Array<RecommandRestaurantInfo> = [];
-          for (let i = 0; i < 5; i++) {
-            let randomNum = Math.floor(Math.random() * data.length);
-            let pick = data[randomNum];
 
-            if (!random.some((item) => item["사업장명"] == pick["사업장명"])) {
+          while (randomSet.size < 5) {
+            const randomNum = Math.floor(Math.random() * data.length);
+            if (!randomSet.has(randomNum)) {
+              const pick = data[randomNum];
               const query = "야탑 " + pick["사업장명"];
               const searchData = await getKakaoSearch(query).catch((e) => {
                 console.log("KAKAO ERROR", e);
@@ -27,10 +28,9 @@ export const sendRecommand = async (_req?: Request, res?: Response) => {
               });
               random.push({
                 ...pick,
-                imageUrl: searchData.documents[0].url ?? "",
+                imageUrl: searchData?.documents?.[0]?.url ?? "",
               });
-            } else {
-              i--;
+              randomSet.add(randomNum);
             }
           }
           res(random);
@@ -41,7 +41,7 @@ export const sendRecommand = async (_req?: Request, res?: Response) => {
     );
 
     const info = {
-      data: randomRestaurats,
+      data: randomRestaurants,
       key: process.env.WEBHOOK_URL ?? "",
     };
 
