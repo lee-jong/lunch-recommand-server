@@ -14,7 +14,7 @@ schedule.scheduleJob("0 0 15 * * 4", async () => {
     data: {
       title: "주간 업무 작성 시간이에요.",
       desc: "아래 링크로 접속하여 작성하여주세요.",
-      url: "https://docs.google.com/spreadsheets/d/1gxTDNKEkvzw2xdm1l69YKX_rDdbLQtN_4m4BffvQVcc/edit?gid=651537693#gid=651537693",
+      url: "https://docs.google.com/spreadsheets/d/1N1CXeJOOamP2w9liaVn2v3D2FNh9mOZ0C5oY4T_OzVs/edit?gid=651537693#gid=651537693",
     },
     key: process.env.WEBHOOK_URL ?? "",
   };
