@@ -1,6 +1,6 @@
 {
   "name": "lunch-recommand-server",
-  "version": "1.0.12",
+  "version": "1.0.13",
   "description": "",
   "type": "commonjs",
   "main": "server.ts",

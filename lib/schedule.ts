@@ -21,30 +21,30 @@ schedule.scheduleJob("0 0 15 * * 4", async () => {
   await sendJandiWorkWebhook(info);
 });
 
-schedule.scheduleJob("0 50 9 * * 5", async () => {
-  console.log("schedule job 모바일 출근 ###");
+// schedule.scheduleJob("0 50 9 * * 5", async () => {
+//   console.log("schedule job 모바일 출근 ###");
 
-  const info = {
-    data: {
-      title: "모바일 출근 등록 하셨나요?",
-      desc: "문제 발생 시, 아래 링크로도 출근 등록이 가능합니다.",
-      url: "https://erp.clobot.co.kr/gw/uat/uia/egovLoginUsr.do",
-    },
-    key: process.env.WEBHOOK_URL ?? "",
-  };
-  await sendJandiWorkWebhook(info);
-});
+//   const info = {
+//     data: {
+//       title: "모바일 출근 등록 하셨나요?",
+//       desc: "문제 발생 시, 아래 링크로도 출근 등록이 가능합니다.",
+//       url: "https://erp.clobot.co.kr/gw/uat/uia/egovLoginUsr.do",
+//     },
+//     key: process.env.WEBHOOK_URL ?? "",
+//   };
+//   await sendJandiWorkWebhook(info);
+// });
 
-schedule.scheduleJob("0 0 17 * * 5", async () => {
-  console.log("schedule job 모바일 퇴근 ###");
+// schedule.scheduleJob("0 0 17 * * 5", async () => {
+//   console.log("schedule job 모바일 퇴근 ###");
 
-  const info = {
-    data: {
-      title: "모바일 퇴근 등록 하셨나요?",
-      desc: "문제 발생 시, 아래 링크로도 출근 등록이 가능합니다.",
-      url: "https://erp.clobot.co.kr/gw/uat/uia/egovLoginUsr.do",
-    },
-    key: process.env.WEBHOOK_URL ?? "",
-  };
-  await sendJandiWorkWebhook(info);
-});
+//   const info = {
+//     data: {
+//       title: "모바일 퇴근 등록 하셨나요?",
+//       desc: "문제 발생 시, 아래 링크로도 출근 등록이 가능합니다.",
+//       url: "https://erp.clobot.co.kr/gw/uat/uia/egovLoginUsr.do",
+//     },
+//     key: process.env.WEBHOOK_URL ?? "",
+//   };
+//   await sendJandiWorkWebhook(info);
+// });
