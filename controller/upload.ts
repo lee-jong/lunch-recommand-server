@@ -17,22 +17,36 @@ export const fileUpload = async (req: Request, res: Response) => {
 
     await new Promise((res, rej) => {
       let data: Array<RestaurantInfo> = [];
+
       fs.createReadStream(join(__dirname, "../uploads/Restaurant.csv"))
-        .pipe(iconv.decodeStream("EUC-KR"))
-        .pipe(csvParser())
+        // .pipe(iconv.decodeStream("EUC-KR"))
+        .pipe(csvParser({ skipLines: 0, strict: false }))
         .on("data", (row) => {
-          if (row["영업상태"] !== "운영") return;
-          if (row["업종명"] !== "일반음식점") return;
-          if (row["구"] !== "분당구") return;
-          if (!row["소재지(지번)"].includes("야탑동")) return;
+          const [
+            borough,
+            businessName,
+            signName,
+            businessStatus,
+            _registerDate,
+            _shutDownDate,
+            _extent,
+            roadAddress,
+            address,
+          ] = Object.keys(row);
+
+          if (row[businessStatus] == "폐업") return;
+          if (row[businessName] !== "일반음식점") return;
+          if (row[borough] !== "분당구") return;
+          if (!row[address].includes("야탑동")) return;
           if (
             nameException.some((ex) =>
-              row["사업장명"].toUpperCase().includes(ex.toUpperCase())
+              row[signName].toUpperCase().includes(ex.toUpperCase())
             )
           )
             return;
-          if (addressException.some((ex) => row["소재지(도로명)"].includes(ex)))
+          if (addressException.some((ex) => row[roadAddress].includes(ex)))
             return;
+
           data.push(row);
         })
         .on("end", () => {
