@@ -36,8 +36,8 @@ export const fileUpload = async (req: Request, res: Response) => {
 
           if (row[businessStatus] == "폐업") return;
           if (row[businessName] !== "일반음식점") return;
-          if (row[borough] !== "분당구") return;
-          if (!row[address].includes("야탑동")) return;
+          if (row[borough] !== "중원구") return;
+          if (!row[address].includes("여수동")) return;
           if (
             nameException.some((ex) =>
               row[signName].toUpperCase().includes(ex.toUpperCase())
