@@ -15,7 +15,6 @@ dist-ssr
 .env
 .env.prod
 .env.develop
-json/recommand_index.json
 
 # Editor directories and files
 .vscode/*
