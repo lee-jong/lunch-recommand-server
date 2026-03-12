@@ -5,47 +5,48 @@ import { sendJandiWebhook } from "api/jandi";
 import { getKakaoSearch } from "api/kakao";
 import { handleError } from "util/status";
 
+const INDEX_PATH = join(__dirname, "../json/recommand_index.json");
+
+const readIndex = (): number => {
+  try {
+    return JSON.parse(fs.readFileSync(INDEX_PATH, "utf-8")).index ?? 0;
+  } catch {
+    return 0;
+  }
+};
+
+const writeIndex = (index: number): void => {
+  fs.writeFileSync(INDEX_PATH, JSON.stringify({ index }, null, 2));
+};
+
 export const sendRecommand = async (_req?: Request, res?: Response) => {
   try {
     const data: Array<RestaurantInfo> = JSON.parse(
-      fs.readFileSync(join(__dirname, "../json/restaurant.json"), "utf-8")
+      fs.readFileSync(join(__dirname, "../json/restaurant.json"), "utf-8"),
     );
 
-    const randomRestaurants = await new Promise<Array<RecommandRestaurantInfo>>(
-      async (res, rej) => {
-        try {
-          let randomSet = new Set<number>();
-          let random: Array<RecommandRestaurantInfo> = [];
+    const currentIndex = readIndex();
+    const pick = data[currentIndex];
 
-          while (randomSet.size < 5) {
-            const randomNum = Math.floor(Math.random() * data.length);
-            if (!randomSet.has(randomNum)) {
-              const pick = data[randomNum];
-              const query = "야탑 " + pick["사업장명"];
-              const searchData = await getKakaoSearch(query).catch((e) => {
-                console.log("KAKAO ERROR", e);
-                return "";
-              });
-              random.push({
-                ...pick,
-                imageUrl: searchData?.documents?.[0]?.url ?? "",
-              });
-              randomSet.add(randomNum);
-            }
-          }
-          res(random);
-        } catch (e) {
-          rej({ code: 500 });
-        }
-      }
-    );
+    const query = "야탑 " + pick["사업장명"];
+    const searchData = await getKakaoSearch(query).catch((e) => {
+      console.log("KAKAO ERROR", e);
+      return "";
+    });
+
+    const restaurant: RecommandRestaurantInfo = {
+      ...pick,
+      imageUrl: searchData?.documents?.[0]?.url ?? "",
+    };
 
     const info = {
-      data: randomRestaurants,
+      data: [restaurant],
       key: process.env.WEBHOOK_URL ?? "",
     };
 
-    sendJandiWebhook(info);
+    await sendJandiWebhook(info);
+
+    writeIndex((currentIndex + 1) % data.length);
 
     res &&
       res.status(200).json({

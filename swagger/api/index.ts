@@ -1,3 +1,4 @@
-import file from "./file";
+// import file from "./file";
 import recommand from "./recommand";
-export default { ...file, ...recommand };
+// export default { ...file, ...recommand };
+export default { ...recommand };
