@@ -28,7 +28,7 @@ export const sendRecommand = async (_req?: Request, res?: Response) => {
     const currentIndex = readIndex();
     const pick = data[currentIndex];
 
-    const query = "야탑 " + pick["사업장명"];
+    const query = "여수동" + pick["사업장명"];
     const searchData = await getKakaoSearch(query).catch((e) => {
       console.log("KAKAO ERROR", e);
       return "";
