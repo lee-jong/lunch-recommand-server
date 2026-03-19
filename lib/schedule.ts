@@ -7,7 +7,7 @@ schedule.scheduleJob("0 20 11 * * 1-5", async () => {
   await sendRecommand();
 });
 
-schedule.scheduleJob("0 0 15 * * 4", async () => {
+schedule.scheduleJob("0 0 14 * * 4", async () => {
   console.log("schedule job 주간 보고 시간 ###");
 
   const info = {
