@@ -22,11 +22,15 @@ const writeIndex = (index: number): void => {
 export const sendRecommand = async (_req?: Request, res?: Response) => {
   try {
     const data: Array<RestaurantInfo> = JSON.parse(
-      fs.readFileSync(join(__dirname, "../json/restaurant.json"), "utf-8"),
+      fs.readFileSync(join(__dirname, "../json/restaurant.json"), "utf-8")
     );
 
-    const currentIndex = readIndex();
+    let currentIndex = readIndex();
     const pick = data[currentIndex];
+
+    if (!pick) {
+      currentIndex = 0;
+    }
 
     const query = "여수동" + pick["사업장명"];
     const searchData = await getKakaoSearch(query).catch((e) => {
