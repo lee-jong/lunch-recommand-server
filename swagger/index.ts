@@ -2,14 +2,14 @@ import swaggerUI from "swagger-ui-express";
 import swaggerJsDoc from "swagger-jsdoc";
 import Swagger from "./handler/swagger";
 
-import apiDoc from "./api";
+// import apiDoc from "./api";
 export default class ApiDocs {
   $apiDocOption: any;
   $swagger: Swagger;
 
   constructor() {
     this.$apiDocOption = {
-      ...apiDoc,
+      // ...apiDoc,
     };
     this.$swagger = new Swagger();
   }
