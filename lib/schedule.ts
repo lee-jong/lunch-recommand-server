@@ -1,10 +1,10 @@
 import { sendJandiWorkWebhook } from "api/jandi";
 import schedule from "node-schedule";
-import { sendRecommand } from "controller/recommand";
+import { multiRecommand } from "controller/recommand";
 
 schedule.scheduleJob("0 20 11 * * 1-5", async () => {
   console.log("schedule job ###");
-  await sendRecommand();
+  await multiRecommand();
 });
 
 schedule.scheduleJob("0 0 14 * * 4", async () => {

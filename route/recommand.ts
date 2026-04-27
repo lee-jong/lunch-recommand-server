@@ -1,7 +1,7 @@
 import express from "express";
-import { sendRecommand } from "controller/recommand";
+import { multiRecommand } from "controller/recommand";
 
 const router = express.Router();
-router.route("/send_recommand").get(sendRecommand);
+router.route("/send_recommand").get(multiRecommand);
 
 export default router;
