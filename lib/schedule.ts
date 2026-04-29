@@ -16,7 +16,7 @@ schedule.scheduleJob("0 0 14 * * 4", async () => {
       desc: "아래 링크로 접속하여 작성하여주세요.",
       url: "https://docs.google.com/spreadsheets/d/1icbVZAnm6kW4suGJN_plO3rBkb_As0WXZg8wQkssOec/edit?gid=651537693#gid=651537693",
     },
-    key: process.env.WEBHOOK_URL ?? "",
+    key: process.env.WEBHOOK_URL_RADTEAM ?? "",
   };
   await sendJandiWorkWebhook(info);
 });
